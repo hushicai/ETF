@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "test": "jest",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\""
+  },
+  "dependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "@snowpack/app-scripts-react": "^1.1.4",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.3",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.0",
+    "jest": "^25.4.0",
+    "prettier": "^2.0.0",
+    "snowpack": "^2.2.0",
+    "typescript": "^3.8.0"
+  }
+}
