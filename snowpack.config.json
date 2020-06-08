@@ -1,8 +1,11 @@
 {
   "extends": "@snowpack/app-scripts-react",
   "scripts": {},
-  "plugins": [],
+  "plugins": [
+    "@snowpack/plugin-webpack"
+  ],
   "devOptions": {
     "out": "docs"
-  }
+  },
+  "homepage": "/etf"
 }
