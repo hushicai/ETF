@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AppContext } from '../common/store';
+import { PercentInput } from '../components/PercentInput';
 
 type Props = {};
 
@@ -8,17 +10,19 @@ const Row = styled.div`
 `;
 
 export function Settings() {
+  const { state } = useContext(AppContext);
+  const { amount, percentPerGrid, increasePercentPerGrid } = state;
   return (
     <form>
       <fieldset>
         <legend>基本设置</legend>
         <Row>
           <label>每份金额</label>
-          <input type="text" value="1000" />元
+          <input type="text" defaultValue={amount} />元
         </Row>
         <Row>
           <label>每格幅度</label>
-          <input type="text" value="5" />%
+          <PercentInput value={percentPerGrid} min={1} max={10} />
         </Row>
         <Row>
           <label>网格数</label>
@@ -36,7 +40,7 @@ export function Settings() {
         <legend>逐格加码</legend>
         <Row>
           <label>加码幅度</label>
-          <input type="text" value="0" />%
+          <PercentInput value={increasePercentPerGrid} min={0} />
         </Row>
       </fieldset>
       <fieldset>
