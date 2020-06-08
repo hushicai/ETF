@@ -1,5 +1,8 @@
 {
   "extends": "@snowpack/app-scripts-react",
   "scripts": {},
-  "plugins": []
+  "plugins": [],
+  "devOptions": {
+    "out": "docs"
+  }
 }
