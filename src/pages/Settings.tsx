@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useAppState } from '../common/store';
 import { TextInput, PercentTextInput } from '../components/TextInput';
+import { CheckBox } from '../components/Checkbox';
 
 type Props = {};
 
@@ -83,13 +84,23 @@ export function Settings() {
         <Row>
           <label>
             中网
-            <input type="checkbox" defaultChecked={hasMiddleGrid} />
+            <CheckBox
+              checked={hasMiddleGrid}
+              onChange={(value: boolean) => {
+                dispatch('hasMiddleGrid', value);
+              }}
+            />
           </label>
         </Row>
         <Row>
           <label>
             大网
-            <input type="checkbox" defaultChecked={hasBigGrid} />
+            <CheckBox
+              checked={hasBigGrid}
+              onChange={(value: boolean) => {
+                dispatch('hasBigGrid', value);
+              }}
+            />
           </label>
         </Row>
       </fieldset>
