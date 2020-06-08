@@ -5,13 +5,14 @@ const percentToNumber = (v: number) => parseFloat((v / 100).toFixed(2));
 
 export function usePercentValue(
   initialValue: number,
-): [string, (value: number) => void] {
+): [number, string, (value: number) => void] {
   const [state, setState] = useState(initialValue);
 
   return [
+    state,
     numberToPercent(state),
     (value: number) => {
-      setState(percentToNumber(value));
+      setState(percentToNumber(+value));
     },
   ];
 }
