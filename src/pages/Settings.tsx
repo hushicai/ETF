@@ -1,26 +1,19 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { useDispatch, useAppState } from '../common/store';
-import { TextInput, PercentTextInput } from '../components/TextInput';
+import { NumberInput, PercentInput, TextInput } from '../components/Input';
 import { CheckBox } from '../components/Checkbox';
-
-type Props = {};
-
-const Row = styled.div`
-  display: flex;
-`;
+import { Row } from '../components/Row';
 
 export function Settings() {
   const state = useAppState();
   const dispatch = useDispatch();
   const {
     amount,
-    percentPerGrid,
     increasePercentPerGrid,
     numberOfGrids,
     numberOfRetainedProfits,
     hasMiddleGrid,
-    hasBigGrid,
+    hasBigGrid
   } = state;
   return (
     <form>
@@ -28,26 +21,19 @@ export function Settings() {
         <legend>基本设置</legend>
         <Row>
           <label>每份金额</label>
-          <TextInput
-            value={amount}
-            onChange={(value: number) => {
-              dispatch('amount', value);
-            }}
-          />
-          元
-        </Row>
-        <Row>
-          <label>每格幅度</label>
-          <PercentTextInput
-            value={percentPerGrid}
-            onChange={(value: number) => {
-              dispatch('percentPerGrid', value);
-            }}
-          />
+          <div>
+            <NumberInput
+              value={amount}
+              onChange={(value: number) => {
+                dispatch('amount', value);
+              }}
+            />
+            元
+          </div>
         </Row>
         <Row>
           <label>网格数</label>
-          <TextInput
+          <NumberInput
             value={numberOfGrids}
             onChange={(value: number) => {
               dispatch('numberOfGrids', value);
@@ -59,7 +45,7 @@ export function Settings() {
         <legend>留利润</legend>
         <Row>
           <label>留存份数</label>
-          <TextInput
+          <NumberInput
             value={numberOfRetainedProfits}
             onChange={(value: number) => {
               dispatch('numberOfRetainedProfits', value);
@@ -71,7 +57,7 @@ export function Settings() {
         <legend>逐格加码</legend>
         <Row>
           <label>加码幅度</label>
-          <PercentTextInput
+          <PercentInput
             value={increasePercentPerGrid}
             onChange={(value: number) => {
               dispatch('increasePercentPerGrid', value);
@@ -82,26 +68,22 @@ export function Settings() {
       <fieldset>
         <legend>一网打尽</legend>
         <Row>
-          <label>
-            中网
-            <CheckBox
-              checked={hasMiddleGrid}
-              onChange={(value: boolean) => {
-                dispatch('hasMiddleGrid', value);
-              }}
-            />
-          </label>
+          <label>中网</label>
+          <CheckBox
+            checked={hasMiddleGrid}
+            onChange={(value: boolean) => {
+              dispatch('hasMiddleGrid', value);
+            }}
+          />
         </Row>
         <Row>
-          <label>
-            大网
-            <CheckBox
-              checked={hasBigGrid}
-              onChange={(value: boolean) => {
-                dispatch('hasBigGrid', value);
-              }}
-            />
-          </label>
+          <label>大网</label>
+          <CheckBox
+            checked={hasBigGrid}
+            onChange={(value: boolean) => {
+              dispatch('hasBigGrid', value);
+            }}
+          />
         </Row>
       </fieldset>
     </form>

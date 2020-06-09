@@ -3,8 +3,6 @@ import { createContext, useContext } from 'react';
 type State = {
   // 每份金额
   amount: number;
-  // 每格幅度
-  percentPerGrid: number;
   // 网格数
   numberOfGrids: number;
   // 留存利润
@@ -18,18 +16,16 @@ type State = {
 export const initialState = {
   // 每份金额
   amount: 1000,
-  // 每格幅度
-  percentPerGrid: 0.05,
   // 网格数
-  numberOfGrids: 10,
+  numberOfGrids: 20,
   // 留存利润
   numberOfRetainedProfits: 0,
   // 逐格加码
   increasePercentPerGrid: 0.0,
   // 中网
-  hasMiddleGrid: false,
+  hasMiddleGrid: true,
   // 大网
-  hasBigGrid: false,
+  hasBigGrid: true
 };
 
 type Keys = keyof typeof initialState;
@@ -52,7 +48,7 @@ export function reducer(state: State, action: Action): State {
       const { key, payload } = action;
       state = {
         ...state,
-        [key]: payload.value,
+        [key]: payload.value
       };
       break;
     default:
@@ -77,8 +73,8 @@ export function useDispatch() {
       type: 'changeSetting',
       key,
       payload: {
-        value,
-      },
+        value
+      }
     });
   };
 }

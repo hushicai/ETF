@@ -1,8 +1,21 @@
 import React from 'react';
+import { useGrids, GearType } from '../hooks/useGrids';
+import styled from 'styled-components';
 
-type Props = {};
+const SmallGrid = styled.tr`
+  background-color: #ffffff;
+`;
+
+const MiddleGrid = styled.tr`
+  background-color: #3da4ab;
+`;
+
+const BigGrid = styled.tr`
+  background-color: #fe8a71;
+`;
 
 export function Grids() {
+  const grids = useGrids();
   return (
     <table>
       <thead>
@@ -22,6 +35,33 @@ export function Grids() {
           <th>盈利比例</th>
         </tr>
       </thead>
+      <tbody>
+        {grids.map((grid, index) => {
+          const GridComponent =
+            grid.type === GearType.small
+              ? SmallGrid
+              : grid.type === GearType.middle
+              ? MiddleGrid
+              : BigGrid;
+          return (
+            <GridComponent key={index}>
+              <td>{index + 1}</td>
+              <td>{grid.type}</td>
+              <td>{grid.gear}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </GridComponent>
+          );
+        })}
+      </tbody>
     </table>
   );
 }
