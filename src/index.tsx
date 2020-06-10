@@ -1,13 +1,28 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './pages/App';
-import './index.css';
+import { createGlobalStyle } from 'styled-components';
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+`;
 ReactDOM.render(
-  <React.StrictMode>
+  <>
+    <GlobalStyle />
     <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
+  </>,
+  document.getElementById('root')
 );
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
