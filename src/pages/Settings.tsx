@@ -27,6 +27,7 @@ const Label = styled.label`
   width: 4em;
   margin-right: 1em;
   display: inline-flex;
+  white-space: nowrap;
 `;
 
 const InputContainer = styled.div`
