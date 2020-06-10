@@ -3,6 +3,24 @@ import { useDispatch, useAppState } from '../common/store';
 import { NumberInput, PercentInput, TextInput } from '../components/Input';
 import { CheckBox } from '../components/Checkbox';
 import { Row } from '../components/Row';
+import styled from 'styled-components';
+
+const Fieldset = styled.fieldset`
+  border: 0;
+  padding: 0;
+  margin-bottom: 1.5em;
+`;
+const Legend = styled.legend`
+  display: block;
+  width: 100%;
+  padding: 0.3em 0;
+  margin-bottom: 0.3em;
+  border-bottom: 1px solid #333;
+`;
+const Label = styled.label`
+  width: 4em;
+  margin-right: 1em;
+`;
 
 export function Settings() {
   const state = useAppState();
@@ -17,10 +35,10 @@ export function Settings() {
   } = state;
   return (
     <form>
-      <fieldset>
-        <legend>基本设置</legend>
+      <Fieldset>
+        <Legend>基本设置</Legend>
         <Row>
-          <label>价格</label>
+          <Label>价　　格</Label>
           <div>
             <NumberInput
               value={price}
@@ -32,7 +50,7 @@ export function Settings() {
           </div>
         </Row>
         <Row>
-          <label>每份金额</label>
+          <Label>每份金额</Label>
           <div>
             <NumberInput
               value={amount}
@@ -43,23 +61,26 @@ export function Settings() {
             元
           </div>
         </Row>
-      </fieldset>
-      <fieldset>
-        <legend>留利润</legend>
+      </Fieldset>
+      <Fieldset>
+        <Legend>留利润</Legend>
         <Row>
-          <label>留存份数</label>
-          <NumberInput
-            value={numberOfRetainedProfits}
-            onChange={(value: number) => {
-              dispatch('numberOfRetainedProfits', value);
-            }}
-          />
+          <Label>留存份数</Label>
+          <div>
+            <NumberInput
+              value={numberOfRetainedProfits}
+              onChange={(value: number) => {
+                dispatch('numberOfRetainedProfits', value);
+              }}
+            />
+            份
+          </div>
         </Row>
-      </fieldset>
-      <fieldset>
-        <legend>逐格加码</legend>
+      </Fieldset>
+      <Fieldset>
+        <Legend>逐格加码</Legend>
         <Row>
-          <label>加码幅度</label>
+          <Label>加码幅度</Label>
           <PercentInput
             value={increasePercentPerGrid}
             onChange={(value: number) => {
@@ -67,11 +88,11 @@ export function Settings() {
             }}
           />
         </Row>
-      </fieldset>
-      <fieldset>
-        <legend>一网打尽</legend>
+      </Fieldset>
+      <Fieldset>
+        <Legend>一网打尽</Legend>
         <Row>
-          <label>中网</label>
+          <Label>中　　网</Label>
           <CheckBox
             checked={hasMiddleGrid}
             onChange={(value: boolean) => {
@@ -80,7 +101,7 @@ export function Settings() {
           />
         </Row>
         <Row>
-          <label>大网</label>
+          <Label>大　　网</Label>
           <CheckBox
             checked={hasBigGrid}
             onChange={(value: boolean) => {
@@ -88,7 +109,7 @@ export function Settings() {
             }}
           />
         </Row>
-      </fieldset>
+      </Fieldset>
     </form>
   );
 }

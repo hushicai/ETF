@@ -18,7 +18,9 @@ function App({}: AppProps) {
           <Grids />
         </AppContext.Provider>
       </main>
-      <footer className="app-footer">@copyright 2020</footer>
+      <footer className="app-footer">
+        @copyright {new Date().getFullYear()}
+      </footer>
     </div>
   );
 }

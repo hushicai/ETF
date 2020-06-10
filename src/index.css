@@ -7,6 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -16,4 +21,22 @@ code {
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {  
    opacity: 1;
+}
+
+.app {
+  padding: 0.5em;
+  box-sizing: border-box;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.app-header h1 {
+  margin-bottom: 0.5em;
+}
+
+.app-footer {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
