@@ -36,5 +36,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: master
-        FOLDER: docs # The folder the action should deploy.
+        BRANCH: gh-pages
+        FOLDER: . # The folder the action should deploy.
