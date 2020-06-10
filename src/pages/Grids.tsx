@@ -16,6 +16,10 @@ const BigGrid = styled.tr`
 
 export function Grids() {
   const grids = useGrids();
+  const totalBuyAmount = grids.reduce((sum, grid) => {
+    return sum + grid.buyAmount;
+  }, 0);
+
   return (
     <table>
       <thead>
@@ -50,7 +54,7 @@ export function Grids() {
               <td>{toFixedString(grid.gear)}</td>
               <td>{toFixedString(grid.buyPrice)}</td>
               <td>{toFixedString(grid.sellPrice)}</td>
-              <td>{toFixedString(grid.buyAmount, 0)}</td>
+              <td>{grid.buyAmount}</td>
               <td>{toFixedString(grid.buyCount, 0)}</td>
               <td>{toFixedString(grid.sellAmount, 0)}</td>
               <td>{toFixedString(grid.sellCount, 0)}</td>
@@ -62,6 +66,23 @@ export function Grids() {
           );
         })}
       </tbody>
+      <tfoot>
+        <tr>
+          <td>总计</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{totalBuyAmount}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
     </table>
   );
 }

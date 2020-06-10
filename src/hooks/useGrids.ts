@@ -120,7 +120,10 @@ export function useGrids() {
     k = 1;
 
   while (gear >= minGear) {
-    const buyAmount = (increasePercentPerGrid * i + 1) * amount;
+    const buyAmount = toFixedNumber(
+      (increasePercentPerGrid * i + 1) * amount,
+      0
+    );
 
     grids.push(
       createGrid({

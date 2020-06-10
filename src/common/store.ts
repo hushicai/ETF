@@ -23,9 +23,9 @@ export const initialState = {
   // 逐格加码
   increasePercentPerGrid: 0.0,
   // 中网
-  hasMiddleGrid: true,
+  hasMiddleGrid: false,
   // 大网
-  hasBigGrid: true
+  hasBigGrid: false
 };
 
 export type InitalState = typeof initialState;
