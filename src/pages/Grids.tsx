@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGrids, GearType } from '../hooks/useGrids';
+import { useGrids, GearType, toFixedString } from '../hooks/useGrids';
 import styled from 'styled-components';
 
 const SmallGrid = styled.tr`
@@ -29,10 +29,10 @@ export function Grids() {
           <th>买入数量</th>
           <th>卖出金额</th>
           <th>卖出数量</th>
-          <th>本期留存数量</th>
-          <th>本期留存利润</th>
           <th>盈利金额</th>
           <th>盈利比例</th>
+          <th>留存利润</th>
+          <th>留存数量</th>
         </tr>
       </thead>
       <tbody>
@@ -47,17 +47,17 @@ export function Grids() {
             <GridComponent key={index}>
               <td>{index + 1}</td>
               <td>{grid.type}</td>
-              <td>{grid.gear}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{toFixedString(grid.gear)}</td>
+              <td>{toFixedString(grid.buyPrice)}</td>
+              <td>{toFixedString(grid.sellPrice)}</td>
+              <td>{toFixedString(grid.buyAmount, 0)}</td>
+              <td>{toFixedString(grid.buyCount, 0)}</td>
+              <td>{toFixedString(grid.sellAmount, 0)}</td>
+              <td>{toFixedString(grid.sellCount, 0)}</td>
+              <td>{toFixedString(grid.profits, 0)}</td>
+              <td>{grid.returnRate}</td>
+              <td>{toFixedString(grid.retainedProfits, 0)}</td>
+              <td>{toFixedString(grid.retainedCount, 0)}</td>
             </GridComponent>
           );
         })}

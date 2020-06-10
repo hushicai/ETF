@@ -8,9 +8,9 @@ export function Settings() {
   const state = useAppState();
   const dispatch = useDispatch();
   const {
+    price,
     amount,
     increasePercentPerGrid,
-    numberOfGrids,
     numberOfRetainedProfits,
     hasMiddleGrid,
     hasBigGrid
@@ -19,6 +19,18 @@ export function Settings() {
     <form>
       <fieldset>
         <legend>基本设置</legend>
+        <Row>
+          <label>价格</label>
+          <div>
+            <NumberInput
+              value={price}
+              onChange={(value: number) => {
+                dispatch('price', value);
+              }}
+            />
+            元
+          </div>
+        </Row>
         <Row>
           <label>每份金额</label>
           <div>
@@ -30,15 +42,6 @@ export function Settings() {
             />
             元
           </div>
-        </Row>
-        <Row>
-          <label>网格数</label>
-          <NumberInput
-            value={numberOfGrids}
-            onChange={(value: number) => {
-              dispatch('numberOfGrids', value);
-            }}
-          />
         </Row>
       </fieldset>
       <fieldset>

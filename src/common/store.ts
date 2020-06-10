@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react';
 
 type State = {
+  // 价格
+  price: number;
   // 每份金额
   amount: number;
-  // 网格数
-  numberOfGrids: number;
   // 留存利润
   numberOfRetainedProfits: number;
   // 逐格加码
@@ -14,10 +14,10 @@ type State = {
 };
 
 export const initialState = {
+  // 价格
+  price: 1.0,
   // 每份金额
-  amount: 1000,
-  // 网格数
-  numberOfGrids: 20,
+  amount: 10000,
   // 留存利润
   numberOfRetainedProfits: 0,
   // 逐格加码
@@ -28,7 +28,9 @@ export const initialState = {
   hasBigGrid: true
 };
 
-type Keys = keyof typeof initialState;
+export type InitalState = typeof initialState;
+
+type Keys = keyof InitalState;
 type Payload = {
   value: typeof initialState[Keys];
 };
