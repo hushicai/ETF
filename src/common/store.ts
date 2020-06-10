@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-type State = {
+export type State = {
   // 价格
   price: number;
   // 每份金额
@@ -28,9 +28,7 @@ export const initialState = {
   hasBigGrid: false
 };
 
-export type InitalState = typeof initialState;
-
-type Keys = keyof InitalState;
+type Keys = keyof State;
 type Payload = {
   value: typeof initialState[Keys];
 };

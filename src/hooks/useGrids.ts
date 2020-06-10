@@ -1,4 +1,4 @@
-import { useAppState, InitalState } from '../common/store';
+import { useAppState, State } from '../common/store';
 
 // 网格类型
 export enum GearType {
@@ -46,7 +46,7 @@ export const toFixedNumber = (value: number, digits = 3): number => {
   return parseFloat(toFixedString(value, digits));
 };
 
-type GridOptions = Pick<InitalState, 'numberOfRetainedProfits' | 'price'> &
+type GridOptions = Pick<State, 'numberOfRetainedProfits' | 'price'> &
   Pick<Grid, 'type' | 'gear' | 'buyAmount'> & {
     percent: GearPercent;
   };
