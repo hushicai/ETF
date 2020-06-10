@@ -23,17 +23,6 @@ const Row = styled.div<{ last?: boolean }>`
   margin-bottom: ${(props) => (props.last ? 0 : '10px')};
   font-size: 1em;
 `;
-const SpaceBetweenRow = styled(Row)`
-  justify-content: space-between;
-
-  div {
-    height: 30px;
-    width: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-`;
 const Label = styled.label`
   width: 4em;
   margin-right: 1em;
@@ -41,12 +30,10 @@ const Label = styled.label`
 `;
 
 const InputContainer = styled.div`
-  font-weight: 400;
-  font-style: normal;
   display: inline-flex;
   color: rgba(0, 0, 0, 0.87);
   flex: 1;
-  input {
+  input[type='text'] {
     max-width: 100%;
     text-align: left;
     color: rgba(0, 0, 0, 0.87);
@@ -77,6 +64,13 @@ const InputContainer = styled.div`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  }
+`;
+
+const FlexendInputcontainer = styled(InputContainer)`
+  justify-content: flex-end;
+  input[type='checkbox'] {
+    margin-right: 14px;
   }
 `;
 
@@ -152,28 +146,28 @@ export function Settings() {
       </Fieldset>
       <Fieldset last>
         <Legend>一网打尽</Legend>
-        <SpaceBetweenRow>
+        <Row>
           <Label>中　　网</Label>
-          <div>
+          <FlexendInputcontainer>
             <CheckBox
               checked={hasMiddleGrid}
               onChange={(value: boolean) => {
                 dispatch('hasMiddleGrid', value);
               }}
             />
-          </div>
-        </SpaceBetweenRow>
-        <SpaceBetweenRow last>
+          </FlexendInputcontainer>
+        </Row>
+        <Row last>
           <Label>大　　网</Label>
-          <div>
+          <FlexendInputcontainer>
             <CheckBox
               checked={hasBigGrid}
               onChange={(value: boolean) => {
                 dispatch('hasBigGrid', value);
               }}
             />
-          </div>
-        </SpaceBetweenRow>
+          </FlexendInputcontainer>
+        </Row>
       </Fieldset>
     </form>
   );
