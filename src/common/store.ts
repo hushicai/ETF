@@ -19,13 +19,13 @@ export const initialState = {
   // 每份金额
   amount: 10000,
   // 留存利润
-  numberOfRetainedProfits: 0,
+  numberOfRetainedProfits: 1,
   // 逐格加码
-  increasePercentPerGrid: 0.0,
+  increasePercentPerGrid: 0.05,
   // 中网
-  hasMiddleGrid: false,
+  hasMiddleGrid: true,
   // 大网
-  hasBigGrid: false
+  hasBigGrid: true
 };
 
 type Keys = keyof State;
