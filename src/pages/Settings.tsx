@@ -34,6 +34,7 @@ const InputContainer = styled.div`
   color: rgba(0, 0, 0, 0.87);
   flex: 1;
   input[type='text'] {
+    -webkit-appearance: none;
     max-width: 100%;
     text-align: left;
     color: rgba(0, 0, 0, 0.87);
