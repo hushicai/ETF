@@ -31,7 +31,9 @@ type Grid = {
   sellAmount: number;
   // 卖出数量
   sellCount: number;
+  // 盈利金额
   profits: number;
+  // 盈利比例
   returnRate: string;
   // 留存利润
   retainedProfits: number;
