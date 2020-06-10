@@ -44,7 +44,7 @@ function App({}: AppProps) {
     <Container>
       <header>
         <H1>
-          网格交易系统
+          网格交易策略
           <a href="https://github.com/hushicai/etf" title="查看源码">
             <img src={Github} />
           </a>
