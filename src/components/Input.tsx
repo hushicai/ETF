@@ -30,6 +30,7 @@ export function TextInput({ value, onChange, ...rest }: TextInputProps) {
 type IOnNumberChange = (value: number) => void;
 type NumberInputProps = RequiredInputProps &
   OptionalInputProps & { onChange: IOnNumberChange };
+
 export function NumberInput({ value, onChange, ...rest }: NumberInputProps) {
   const callback = useCallback((value: string) => {
     onChange(+value);
@@ -49,9 +50,5 @@ export function PercentInput({ value, onChange, ...rest }: NumberInputProps) {
     onChange(rawValue);
   }, [rawValue]);
 
-  return (
-    <div>
-      <TextInput {...rest} value={percentValue} onChange={callback} />%
-    </div>
-  );
+  return <TextInput {...rest} value={percentValue} onChange={callback} />;
 }

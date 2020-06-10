@@ -1,14 +1,13 @@
 import React from 'react';
 import { useDispatch, useAppState } from '../common/store';
-import { NumberInput, PercentInput, TextInput } from '../components/Input';
+import { NumberInput, PercentInput } from '../components/Input';
 import { CheckBox } from '../components/Checkbox';
-import { Row } from '../components/Row';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Fieldset = styled.fieldset`
+const Fieldset = styled.fieldset<{ last?: boolean }>`
   border: 0;
   padding: 0;
-  margin-bottom: 1.5em;
+  margin-bottom: ${(props) => (props.last ? '3em' : '1.5em')};
 `;
 const Legend = styled.legend`
   display: block;
@@ -16,10 +15,69 @@ const Legend = styled.legend`
   padding: 0.3em 0;
   margin-bottom: 0.3em;
   border-bottom: 1px solid #333;
+  font-size: 1.5em;
+`;
+const Row = styled.div<{ last?: boolean }>`
+  display: flex;
+  align-items: center;
+  margin-bottom: ${(props) => (props.last ? 0 : '10px')};
+  font-size: 1em;
+`;
+const SpaceBetweenRow = styled(Row)`
+  justify-content: space-between;
+
+  div {
+    height: 30px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 const Label = styled.label`
   width: 4em;
   margin-right: 1em;
+  display: inline-flex;
+`;
+
+const InputContainer = styled.div`
+  font-weight: 400;
+  font-style: normal;
+  display: inline-flex;
+  color: rgba(0, 0, 0, 0.87);
+  flex: 1;
+  input {
+    max-width: 100%;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0.5em 1em;
+    background: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(34, 36, 38, 0.15);
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-color: transparent;
+    transition: box-shadow 0.1s ease 0s, border-color 0.1s ease 0s;
+    flex: 1;
+  }
+  div {
+    font-weight: 700;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    color: rgba(0, 0, 0, 0.87);
+    background: none rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(34, 36, 38, 0.15);
+    height: 30px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export function Settings() {
@@ -39,76 +97,83 @@ export function Settings() {
         <Legend>基本设置</Legend>
         <Row>
           <Label>价　　格</Label>
-          <div>
+          <InputContainer>
             <NumberInput
               value={price}
               onChange={(value: number) => {
                 dispatch('price', value);
               }}
             />
-            元
-          </div>
+            <div>元</div>
+          </InputContainer>
         </Row>
-        <Row>
+        <Row last>
           <Label>每份金额</Label>
-          <div>
+          <InputContainer>
             <NumberInput
               value={amount}
               onChange={(value: number) => {
                 dispatch('amount', value);
               }}
             />
-            元
-          </div>
+            <div>元</div>
+          </InputContainer>
         </Row>
       </Fieldset>
       <Fieldset>
         <Legend>留利润</Legend>
-        <Row>
+        <Row last>
           <Label>留存份数</Label>
-          <div>
+          <InputContainer>
             <NumberInput
               value={numberOfRetainedProfits}
               onChange={(value: number) => {
                 dispatch('numberOfRetainedProfits', value);
               }}
             />
-            份
-          </div>
+            <div>份</div>
+          </InputContainer>
         </Row>
       </Fieldset>
       <Fieldset>
         <Legend>逐格加码</Legend>
-        <Row>
+        <Row last>
           <Label>加码幅度</Label>
-          <PercentInput
-            value={increasePercentPerGrid}
-            onChange={(value: number) => {
-              dispatch('increasePercentPerGrid', value);
-            }}
-          />
+          <InputContainer>
+            <PercentInput
+              value={increasePercentPerGrid}
+              onChange={(value: number) => {
+                dispatch('increasePercentPerGrid', value);
+              }}
+            />
+            <div>%</div>
+          </InputContainer>
         </Row>
       </Fieldset>
-      <Fieldset>
+      <Fieldset last>
         <Legend>一网打尽</Legend>
-        <Row>
+        <SpaceBetweenRow>
           <Label>中　　网</Label>
-          <CheckBox
-            checked={hasMiddleGrid}
-            onChange={(value: boolean) => {
-              dispatch('hasMiddleGrid', value);
-            }}
-          />
-        </Row>
-        <Row>
+          <div>
+            <CheckBox
+              checked={hasMiddleGrid}
+              onChange={(value: boolean) => {
+                dispatch('hasMiddleGrid', value);
+              }}
+            />
+          </div>
+        </SpaceBetweenRow>
+        <SpaceBetweenRow last>
           <Label>大　　网</Label>
-          <CheckBox
-            checked={hasBigGrid}
-            onChange={(value: boolean) => {
-              dispatch('hasBigGrid', value);
-            }}
-          />
-        </Row>
+          <div>
+            <CheckBox
+              checked={hasBigGrid}
+              onChange={(value: boolean) => {
+                dispatch('hasBigGrid', value);
+              }}
+            />
+          </div>
+        </SpaceBetweenRow>
       </Fieldset>
     </form>
   );

@@ -32,6 +32,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .app-header h1 {
   margin-bottom: 0.5em;
+  font-size: 2em;
 }
 
 .app-footer {
