@@ -97,7 +97,9 @@ export function Settings() {
             <NumberInput
               value={price}
               onChange={(value: number) => {
-                dispatch('price', value);
+                if (value) {
+                  dispatch('price', value);
+                }
               }}
             />
             <div>元</div>
@@ -109,7 +111,9 @@ export function Settings() {
             <NumberInput
               value={amount}
               onChange={(value: number) => {
-                dispatch('amount', value);
+                if (value) {
+                  dispatch('amount', value);
+                }
               }}
             />
             <div>元</div>

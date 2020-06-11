@@ -10,19 +10,29 @@ type OptionalInputProps = Pick<InputHTMLAttributes, 'type'>;
 
 type IOnStringChange = (value: string) => void;
 type TextInputProps = RequiredInputProps &
-  OptionalInputProps & { onChange: IOnStringChange };
+  OptionalInputProps & { onChange: IOnStringChange } & { pattern: RegExp };
 
-export function TextInput({ value, onChange, ...rest }: TextInputProps) {
+export function TextInput({
+  value,
+  onChange,
+  pattern,
+  ...rest
+}: TextInputProps) {
   const [state, setState] = useState(value);
   const debouncedChange = useCallback(
     debounce<IOnStringChange>(onChange, 300),
     []
   );
-  const callback = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const v = e.target.value;
-    setState(v);
-    debouncedChange(v);
-  }, []);
+  const callback = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const v = e.target.value;
+      setState(v);
+      if (pattern && pattern.test(v)) {
+        debouncedChange(v);
+      }
+    },
+    [pattern]
+  );
 
   return <input type="text" value={state} onChange={callback} />;
 }
@@ -31,11 +41,17 @@ type IOnNumberChange = (value: number) => void;
 type NumberInputProps = RequiredInputProps &
   OptionalInputProps & { onChange: IOnNumberChange };
 
+const patterns = {
+  number: /\d+/
+};
+
 export function NumberInput({ value, onChange, ...rest }: NumberInputProps) {
   const callback = useCallback((value: string) => {
     onChange(+value);
   }, []);
-  return <TextInput value={value} onChange={callback} />;
+  return (
+    <TextInput value={value} onChange={callback} pattern={patterns.number} />
+  );
 }
 
 export function PercentInput({ value, onChange, ...rest }: NumberInputProps) {
@@ -50,5 +66,12 @@ export function PercentInput({ value, onChange, ...rest }: NumberInputProps) {
     onChange(rawValue);
   }, [rawValue]);
 
-  return <TextInput {...rest} value={percentValue} onChange={callback} />;
+  return (
+    <TextInput
+      {...rest}
+      value={percentValue}
+      onChange={callback}
+      pattern={patterns.number}
+    />
+  );
 }
