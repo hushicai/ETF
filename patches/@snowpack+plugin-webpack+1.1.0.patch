@@ -1,0 +1,18 @@
+diff --git a/node_modules/@snowpack/plugin-webpack/plugin.js b/node_modules/@snowpack/plugin-webpack/plugin.js
+index 9a1dbe5..a504df5 100644
+--- a/node_modules/@snowpack/plugin-webpack/plugin.js
++++ b/node_modules/@snowpack/plugin-webpack/plugin.js
+@@ -222,6 +222,13 @@ module.exports = function plugin(config, args) {
+           dom.window.document.querySelector("head").append(csslink);
+         }
+ 
++        // favicon
++        let links = dom.window.document.querySelectorAll('link[rel="icon"]');
++
++        for (const link of links) {
++          link.href = path.join(homepage, link.href);
++        }
++
+         //And write our modified html file out to the destination
+         fs.writeFileSync(
+           path.join(destDirectory, config.devOptions.fallback),
