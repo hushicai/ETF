@@ -91,11 +91,11 @@ export function Grids() {
             <THeadCell>种类</THeadCell>
             <THeadCell>档位</THeadCell>
             <THeadCell>买入价格</THeadCell>
-            <THeadCell>买入金额</THeadCell>
             <THeadCell>买入数量</THeadCell>
+            <THeadCell>买入金额</THeadCell>
             <THeadCell>卖出价格</THeadCell>
-            <THeadCell>卖出金额</THeadCell>
             <THeadCell>卖出数量</THeadCell>
+            <THeadCell>卖出金额</THeadCell>
             <THeadCell>盈利金额</THeadCell>
             <THeadCell>盈利比例</THeadCell>
             <THeadCell>
@@ -124,11 +124,11 @@ export function Grids() {
                 <TBodyCell>{grid.type}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.gear)}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.buyPrice)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.buyAmount, 0)}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.buyCount, 0)}</TBodyCell>
+                <TBodyCell>{toFixedString(grid.buyAmount, 0)}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.sellPrice)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.sellAmount, 0)}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.sellCount, 0)}</TBodyCell>
+                <TBodyCell>{toFixedString(grid.sellAmount, 0)}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.profits, 0)}</TBodyCell>
                 <TBodyCell>{grid.returnRate}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.retainedProfits, 0)}</TBodyCell>

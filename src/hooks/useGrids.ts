@@ -35,9 +35,9 @@ type Grid = {
   profits: number;
   // 盈利比例
   returnRate: string;
-  // 留存利润
+  // 本期留存利润
   retainedProfits: number;
-  // 留存数量
+  // 本期留存数量
   retainedCount: number;
 };
 
