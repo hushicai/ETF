@@ -24,15 +24,18 @@ const Table = styled.table`
   border-width: 1px 0 1px 0;
 `;
 
-const SmallGrid = styled.tr`
+const Tr = styled.tr<{ last?: boolean }>`
+  border-bottom: 1px ${(props) => (props.last ? 'solid' : 'dashed')} #333;
+`;
+const SmallGrid = styled(Tr)`
   background-color: #ffffff;
 `;
 
-const MiddleGrid = styled.tr`
+const MiddleGrid = styled(Tr)`
   background-color: #3da4ab;
 `;
 
-const BigGrid = styled.tr`
+const BigGrid = styled(Tr)`
   background-color: #fe8a71;
 `;
 
@@ -48,7 +51,7 @@ const TBodyCell = styled.td`
 `;
 
 const TFootCell = styled.td`
-  padding: 0.5em 0;
+  padding: 1em 0;
   text-align: center;
 `;
 
@@ -70,10 +73,11 @@ export function Grids() {
     (prev, grid) => {
       return {
         buyAmount: prev.buyAmount + grid.buyAmount,
-        profits: prev.profits + grid.profits
+        profits: prev.profits + grid.profits,
+        retainedProfits: prev.retainedProfits + grid.retainedProfits
       };
     },
-    { buyAmount: 0, profits: 0 }
+    { buyAmount: 0, profits: 0, retainedProfits: 0 }
   );
 
   return (
@@ -119,7 +123,7 @@ export function Grids() {
                 ? MiddleGrid
                 : BigGrid;
             return (
-              <GridComponent key={index}>
+              <GridComponent key={index} last={index === grids.length - 1}>
                 <TBodyCell>{index + 1}</TBodyCell>
                 <TBodyCell>{grid.type}</TBodyCell>
                 <TBodyCell>{toFixedString(grid.gear)}</TBodyCell>
@@ -150,7 +154,7 @@ export function Grids() {
             <TFootCell></TFootCell>
             <TFootCell>{toFixedString(total.profits, 0)}</TFootCell>
             <TFootCell></TFootCell>
-            <TFootCell></TFootCell>
+            <TFootCell>{toFixedString(total.retainedProfits, 0)}</TFootCell>
             <TFootCell></TFootCell>
           </tr>
         </tfoot>
@@ -160,7 +164,7 @@ export function Grids() {
         <ol>
           <li>1. 本表格统一设定最大跌幅为60%。</li>
           <li>
-            2. 场内基金必须按100份整数委托，因此买入金额按实际委托份数进行修正。
+            2. 场内基金必须按100份整数委托，因此买卖金额按实际委托份数进行修正。
           </li>
         </ol>
       </Tip>
