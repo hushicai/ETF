@@ -11,7 +11,8 @@
     "lodash": "^4.17.15",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "xlsx": "^0.16.2"
   },
   "devDependencies": {
     "@snowpack/app-scripts-react": "^1.1.4",
