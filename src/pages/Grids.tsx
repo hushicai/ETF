@@ -98,8 +98,16 @@ export function Grids() {
             <THeadCell>卖出数量</THeadCell>
             <THeadCell>盈利金额</THeadCell>
             <THeadCell>盈利比例</THeadCell>
-            <THeadCell>留存利润</THeadCell>
-            <THeadCell>留存数量</THeadCell>
+            <THeadCell>
+              本期
+              <br />
+              留存利润
+            </THeadCell>
+            <THeadCell>
+              本期
+              <br />
+              留存数量
+            </THeadCell>
           </tr>
         </thead>
         <tbody>

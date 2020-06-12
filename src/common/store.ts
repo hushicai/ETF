@@ -19,7 +19,7 @@ export const initialState = {
   // 每份金额
   amount: 10000,
   // 留存利润
-  numberOfRetainedProfits: 1,
+  numberOfRetainedProfits: 2,
   // 逐格加码
   increasePercentPerGrid: 0.05,
   // 中网
