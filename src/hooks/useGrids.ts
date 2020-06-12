@@ -63,21 +63,26 @@ export const createGrid = (options: GridOptions): Grid => {
     buyAmount
   } = options;
   const buyPrice = gear * price;
-  const buyCount = buyAmount / buyPrice;
+  // 买入必须按照100份整数
+  const buyCount = Math.floor(buyAmount / buyPrice / 100) * 100;
+  // 修正买入金额
+  const reviseBuyAmout = buyCount * buyPrice;
   const sellPrice = (gear + percent) * price;
-  // 收益
   const currentAmount = buyCount * sellPrice;
-  const profits = currentAmount - buyAmount;
-  const returnRate = toFixedString((profits / buyAmount) * 100, 2) + '%';
+  // 收益
+  const profits = (sellPrice - buyPrice) * buyCount;
+  const returnRate = toFixedString((profits / reviseBuyAmout) * 100, 2) + '%';
   const retainedProfits = profits * numberOfRetainedProfits;
   const retainedCount = retainedProfits / sellPrice;
-  const sellAmount = currentAmount - retainedProfits;
-  const sellCount = sellAmount / sellPrice;
+  // 卖出必须按照100份整数
+  const sellCount =
+    Math.floor((currentAmount - retainedProfits) / sellPrice / 100) * 100;
+  const sellAmount = sellCount * sellPrice;
 
   return {
     type,
     gear,
-    buyAmount,
+    buyAmount: reviseBuyAmout,
     buyCount,
     buyPrice,
     sellPrice,
