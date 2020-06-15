@@ -6,7 +6,7 @@ const LazyDownload = lazy(() => import('./Download'));
 
 const Container = styled.div`
   width: 100%;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
 `;
 
 const Title = styled.p`
@@ -17,7 +17,7 @@ const Title = styled.p`
 `;
 
 const Table = styled.table`
-  border-collapse: collapse;
+  border-collapse: separate;
   border-spacing: 0;
   width: 100%;
   border: 1px solid #333;
@@ -42,6 +42,10 @@ const BigGrid = styled(Tr)`
 const THeadCell = styled.th`
   border-bottom: 1px solid #333;
   padding: 0.5em 0;
+  background: #fff;
+  position: sticky;
+  z-index: 1;
+  top: 0;
 `;
 
 const TBodyCell = styled.td`
