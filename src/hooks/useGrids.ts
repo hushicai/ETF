@@ -48,15 +48,15 @@ export const toFixedNumber = (value: number, digits = 3): number => {
   return parseFloat(toFixedString(value, digits));
 };
 
-const divide = (v1: number, v2: number) => {
-  return parseInt((v1 / v2).toPrecision(12), 10);
-};
-
 type GridOptions = Pick<State, 'numberOfRetainedProfits' | 'price'> &
   Pick<Grid, 'type' | 'gear' | 'buyAmount'> & {
     percent: GearPercent;
   };
 
+// 数字精度问题
+const divide = (v1: number, v2: number) => {
+  return parseFloat((v1 / v2).toPrecision(14));
+};
 const T_MIDDLE = divide(GearPercent.middle, GearPercent.small);
 const T_BIG = divide(GearPercent.big, GearPercent.small);
 
