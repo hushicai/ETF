@@ -48,10 +48,17 @@ export const toFixedNumber = (value: number, digits = 3): number => {
   return parseFloat(toFixedString(value, digits));
 };
 
+const divide = (v1: number, v2: number) => {
+  return parseInt((v1 / v2).toPrecision(12), 10);
+};
+
 type GridOptions = Pick<State, 'numberOfRetainedProfits' | 'price'> &
   Pick<Grid, 'type' | 'gear' | 'buyAmount'> & {
     percent: GearPercent;
   };
+
+const T_MIDDLE = divide(GearPercent.middle, GearPercent.small);
+const T_BIG = divide(GearPercent.big, GearPercent.small);
 
 export const createGrid = (options: GridOptions): Grid => {
   const {
@@ -122,8 +129,8 @@ export function useGrids() {
 
   let gear = maxGear;
   let i = 0,
-    j = 1,
-    k = 1;
+    j = 0,
+    k = 0;
 
   while (gear >= minGear) {
     const buyAmount = toFixedNumber(
@@ -143,39 +150,33 @@ export function useGrids() {
     );
 
     // 中网幅度15%
-    if (hasMiddleGrid) {
-      const middleGear = toFixedNumber(1 - j * GearPercent.middle);
-      if (gear === middleGear) {
-        j++;
-        grids.push(
-          createGrid({
-            type: GearType.middle,
-            buyAmount,
-            gear,
-            percent: GearPercent.middle,
-            numberOfRetainedProfits,
-            price
-          })
-        );
-      }
+    if (hasMiddleGrid && i && i % T_MIDDLE === 0) {
+      j++;
+      grids.push(
+        createGrid({
+          type: GearType.middle,
+          buyAmount,
+          gear: toFixedNumber(1 - j * GearPercent.middle),
+          percent: GearPercent.middle,
+          numberOfRetainedProfits,
+          price
+        })
+      );
     }
 
     // 大网幅度30%
-    if (hasBigGrid) {
-      const bigGear = toFixedNumber(1 - k * GearPercent.big);
-      if (gear === bigGear) {
-        k++;
-        grids.push(
-          createGrid({
-            type: GearType.big,
-            buyAmount,
-            gear,
-            percent: GearPercent.big,
-            numberOfRetainedProfits,
-            price
-          })
-        );
-      }
+    if (hasBigGrid && i && i % T_BIG === 0) {
+      k++;
+      grids.push(
+        createGrid({
+          type: GearType.big,
+          buyAmount,
+          gear: toFixedNumber(1 - k * GearPercent.big),
+          percent: GearPercent.big,
+          numberOfRetainedProfits,
+          price
+        })
+      );
     }
 
     i++;
