@@ -68,6 +68,7 @@ const Tip = styled.div`
   }
   ol {
     line-height: 26px;
+    list-style: none;
   }
 `;
 
