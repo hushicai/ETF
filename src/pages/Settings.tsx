@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch, useAppState } from '../common/store';
 import { NumberInput, PercentInput, TextInput } from '../components/Input';
 import { CheckBox } from '../components/Checkbox';
 import styled from 'styled-components';
+import { FundDataItem, suggestFunds } from '../common/service';
+import noop from 'lodash/noop';
+import {
+  UnitInputContainer,
+  InputContainer,
+  FlexendInputContainer
+} from '../components/InputContainer';
+import { Suggestion } from '../components/Suggestion';
 
 const Fieldset = styled.fieldset<{ last?: boolean }>`
   border: 0;
@@ -30,57 +38,6 @@ const Label = styled.label`
   white-space: nowrap;
 `;
 
-const InputContainer = styled.div`
-  display: inline-flex;
-  color: rgba(0, 0, 0, 0.87);
-  flex: 1;
-  input[type='text'] {
-    -webkit-appearance: none;
-    max-width: 100%;
-    text-align: left;
-    color: rgba(0, 0, 0, 0.87);
-    padding: 0.5em 1em;
-    background: rgb(255, 255, 255);
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(34, 36, 38, 0.15);
-    border-radius: 5px;
-    transition: box-shadow 0.1s ease 0s, border-color 0.1s ease 0s;
-    flex: 1;
-  }
-`;
-
-const UnitInputContainer = styled(InputContainer)`
-  input[type='text'] {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-right-color: transparent;
-  }
-  div {
-    font-weight: 700;
-    border-radius: 5px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    color: rgba(0, 0, 0, 0.87);
-    background: none rgb(255, 255, 255);
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(34, 36, 38, 0.15);
-    height: 30px;
-    width: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const FlexendInputContainer = styled(InputContainer)`
-  justify-content: flex-end;
-  input[type='checkbox'] {
-    margin-right: 14px;
-  }
-`;
-
 export function Settings() {
   const state = useAppState();
   const dispatch = useDispatch();
@@ -96,6 +53,7 @@ export function Settings() {
     <form>
       <Fieldset>
         <Legend>基本设置</Legend>
+        <Fund />
         <Row>
           <Label>价　　格</Label>
           <UnitInputContainer>
@@ -181,5 +139,57 @@ export function Settings() {
         </Row>
       </Fieldset>
     </form>
+  );
+}
+
+function Fund() {
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [data, setData] = useState<FundDataItem[]>([]);
+  const callback = useCallback(async (value: string) => {
+    if (!value) {
+      return setData([]);
+    }
+    // TODO: race condition
+    const data = await suggestFunds(value);
+    setData(data);
+  }, []);
+
+  const onSelectCallback = useCallback(
+    (item: FundDataItem) => {
+      const { FundBaseInfo } = item;
+      // 单位净值
+      const { DWJZ } = FundBaseInfo || {};
+
+      if (DWJZ) {
+        dispatch('price', DWJZ);
+      }
+
+      setName(item.NAME);
+      setData([]);
+    },
+    [dispatch]
+  );
+
+  return (
+    <>
+      <Row>
+        <Label>基　　金</Label>
+        <Suggestion
+          inputProps={{ placeholder: '请输入基金代码、拼音或者简称' }}
+          data={data}
+          onSuggest={callback}
+          onSelect={onSelectCallback}
+        />
+      </Row>
+      {name && (
+        <Row>
+          <Label>基金名称</Label>
+          <InputContainer>
+            <TextInput value={name} readOnly onChange={noop} />
+          </InputContainer>
+        </Row>
+      )}
+    </>
   );
 }

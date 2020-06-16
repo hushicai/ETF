@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import React, {
+  useState,
+  Ref,
+  forwardRef,
+  MutableRefObject,
+  RefObject
+} from 'react';
 import { useCallback, ChangeEvent } from 'react';
 import debounce from 'lodash/debounce';
 import { usePercentValue } from '../hooks/usePercentValue';
@@ -6,18 +12,26 @@ import useUpdateEffect from '../hooks/useUpdateEffect';
 
 type InputHTMLAttributes = React.InputHTMLAttributes<HTMLInputElement>;
 type RequiredInputProps = Required<Pick<InputHTMLAttributes, 'value'>>;
-type OptionalInputProps = Pick<InputHTMLAttributes, 'type' | 'placeholder'>;
-
+export type OptionalInputProps = Pick<
+  InputHTMLAttributes,
+  'type' | 'placeholder' | 'readOnly' | 'onBlur' | 'onFocus'
+>;
 type IOnStringChange = (value: string) => void;
-type TextInputProps = RequiredInputProps &
-  OptionalInputProps & { onChange: IOnStringChange } & { pattern?: RegExp };
+type IOnNumberChange = (value: number) => void;
+type OptionalRefProps = {
+  forwardedRef?: RefObject<HTMLInputElement>;
+};
+type BaseInputProps = RequiredInputProps &
+  OptionalInputProps &
+  OptionalRefProps;
 
-export function TextInput({
+function BaseInput({
   value,
   onChange,
   pattern,
+  forwardedRef,
   ...rest
-}: TextInputProps) {
+}: BaseInputProps & { onChange: IOnStringChange; pattern: RegExp }) {
   const [state, setState] = useState(value);
   const debouncedChange = useCallback(
     debounce<IOnStringChange>(onChange, 300),
@@ -34,15 +48,27 @@ export function TextInput({
     [pattern]
   );
 
-  return <input {...rest} type="text" value={state} onChange={callback} />;
+  useUpdateEffect(() => {
+    setState(value);
+  }, [value]);
+
+  return (
+    <input
+      {...rest}
+      ref={forwardedRef}
+      type="text"
+      value={state}
+      onChange={callback}
+    />
+  );
 }
 
-type IOnNumberChange = (value: number) => void;
-type NumberInputProps = RequiredInputProps &
-  OptionalInputProps & { onChange: IOnNumberChange };
+type NumberInputProps = BaseInputProps & { onChange: IOnNumberChange };
+type PercentInputProps = NumberInputProps;
 
 const patterns = {
-  number: /\d+/
+  number: /\d+/,
+  text: /[\d\w]*/
 };
 
 export function NumberInput({ value, onChange, ...rest }: NumberInputProps) {
@@ -50,11 +76,11 @@ export function NumberInput({ value, onChange, ...rest }: NumberInputProps) {
     onChange(+value);
   }, []);
   return (
-    <TextInput value={value} onChange={callback} pattern={patterns.number} />
+    <BaseInput value={value} onChange={callback} pattern={patterns.number} />
   );
 }
 
-export function PercentInput({ value, onChange, ...rest }: NumberInputProps) {
+export function PercentInput({ value, onChange, ...rest }: PercentInputProps) {
   const [rawValue, percentValue, setPercentValue] = usePercentValue(
     value as number
   );
@@ -67,7 +93,7 @@ export function PercentInput({ value, onChange, ...rest }: NumberInputProps) {
   }, [rawValue]);
 
   return (
-    <TextInput
+    <BaseInput
       {...rest}
       value={percentValue}
       onChange={callback}
@@ -75,3 +101,19 @@ export function PercentInput({ value, onChange, ...rest }: NumberInputProps) {
     />
   );
 }
+
+export type TextInputProps = BaseInputProps & {
+  onChange: IOnStringChange;
+};
+
+export function TextInput(props: TextInputProps) {
+  return <BaseInput {...props} pattern={patterns.text} />;
+}
+
+export const ForwardedTextInput = forwardRef<HTMLInputElement, TextInputProps>(
+  (props, ref) => {
+    return (
+      <TextInput {...props} forwardedRef={ref as RefObject<HTMLInputElement>} />
+    );
+  }
+);
