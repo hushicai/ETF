@@ -62,6 +62,7 @@ export function Suggestion({
   const [inputValue, setInputValue] = useState('');
   const [visible, setVisible] = useState(true);
   const onChangeCallback = useCallback((value: string) => {
+    setInputValue(value);
     onSuggest(value);
   }, []);
 
@@ -71,10 +72,7 @@ export function Suggestion({
       const index = node && node.getAttribute('data-suggest-index');
       const item = data[index];
 
-      if (item) {
-        onSelect(item);
-      }
-
+      onSelect(item);
       setInputValue(item.CODE);
       setVisible(false);
     },
