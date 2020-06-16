@@ -2,6 +2,9 @@
 
 基于`长赢指数投资`公众号相关文章生成网格交易策略。
 
+![Lint](https://github.com/hushicai/etf/workflows/Lint/badge.svg) 
+![release](https://github.com/hushicai/etf/workflows/release/badge.svg) 
+
 ## 本地开发
 
 ```
