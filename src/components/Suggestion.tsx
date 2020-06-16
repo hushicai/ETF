@@ -16,8 +16,7 @@ const SuggestionContainer = styled(InputContainer)`
   }
 `;
 
-const List = styled.ul`
-  list-style: none;
+const List = styled.div`
   position: absolute;
   left: 0;
   right: 0;
@@ -25,17 +24,22 @@ const List = styled.ul`
   border: 1px solid #eee;
   margin-top: -2px;
   box-shadow: 0 5px 8px #ddd;
+  ul {
+    list-style: none;
+  }
   li {
     height: 36px;
     line-height: 36px;
     border-bottom: 1px solid #eee;
     padding: 0 1em;
   }
-  li:last-child {
-    border-bottom: 0;
-  }
   li:hover {
     background-color: #eee;
+  }
+  p {
+    font-size: 12px;
+    color: #888;
+    padding: 0.6em 1em;
   }
 `;
 
@@ -121,17 +125,20 @@ export function Suggestion({
       />
       {visible && !!data.length && (
         <List>
-          {data.map((item, index) => {
-            return (
-              <li
-                key={index}
-                data-suggest-index={index}
-                onClick={onSelectCallback}
-              >
-                {item.CODE} {item.NAME}
-              </li>
-            );
-          })}
+          <ul>
+            {data.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  data-suggest-index={index}
+                  onClick={onSelectCallback}
+                >
+                  {item.CODE} {item.NAME}
+                </li>
+              );
+            })}
+          </ul>
+          <p>提示：数据来自天天基金网。</p>
         </List>
       )}
     </SuggestionContainer>
