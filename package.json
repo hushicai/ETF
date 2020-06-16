@@ -4,7 +4,7 @@
     "start": "snowpack dev",
     "build": "snowpack build",
     "test": "jest",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prettier": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint --fix src"
   },
   "dependencies": {
