@@ -2,7 +2,7 @@ import { useEffect, useRef, DependencyList, EffectCallback } from 'react';
 
 const useUpdateEffect: typeof useEffect = (
   effect: EffectCallback,
-  deps?: DependencyList,
+  deps: DependencyList = []
 ) => {
   const isMounted = useRef(false);
 
@@ -12,7 +12,8 @@ const useUpdateEffect: typeof useEffect = (
     } else {
       return effect();
     }
-  }, deps);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [effect, ...deps]);
 };
 
 export default useUpdateEffect;

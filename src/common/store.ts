@@ -43,9 +43,9 @@ export function reducer(state: State, action: Action): State {
   console.log('%cPrevious State:', 'color: #9E9E9E; font-weight: 700;', state);
   console.log('%cAction:', 'color: #00A7F7; font-weight: 700;', action);
   const { type } = action;
+  const { key, payload } = action;
   switch (type) {
     case 'changeSetting':
-      const { key, payload } = action;
       state = {
         ...state,
         [key]: payload.value

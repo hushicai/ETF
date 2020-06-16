@@ -38,9 +38,7 @@ const Footer = styled.footer`
   background: #f8fbfd;
 `;
 
-interface AppProps {}
-
-function App({}: AppProps) {
+function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   return (
     <>

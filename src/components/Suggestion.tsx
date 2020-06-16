@@ -1,5 +1,5 @@
-import React from 'react';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+
 import { TextInput, OptionalInputProps } from './Input';
 import { InputContainer } from './InputContainer';
 import { findDOMNode } from 'react-dom';
@@ -61,10 +61,13 @@ export function Suggestion({
   const containerRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState('');
   const [visible, setVisible] = useState(true);
-  const onChangeCallback = useCallback((value: string) => {
-    setInputValue(value);
-    onSuggest(value);
-  }, []);
+  const onChangeCallback = useCallback(
+    (value: string) => {
+      setInputValue(value);
+      onSuggest(value);
+    },
+    [onSuggest]
+  );
 
   const onSelectCallback = useCallback(
     (e) => {
@@ -76,7 +79,7 @@ export function Suggestion({
       setInputValue(item.CODE);
       setVisible(false);
     },
-    [data]
+    [data, onSelect]
   );
 
   const onFocusCallback = useCallback(() => {
@@ -110,7 +113,7 @@ export function Suggestion({
     return () => {
       document.removeEventListener('click', onDocumentClick);
     };
-  }, []);
+  }, [onDocumentClick]);
 
   return (
     <SuggestionContainer ref={containerRef}>

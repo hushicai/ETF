@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useCallback, ChangeEvent } from 'react';
+import React, { useState, useCallback, ChangeEvent } from 'react';
+
 import useUpdateEffect from '../hooks/useUpdateEffect';
 
 type InputHTMLAttributes = React.InputHTMLAttributes<HTMLInputElement>;

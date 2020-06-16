@@ -1,11 +1,11 @@
 import React, {
   useState,
-  Ref,
   forwardRef,
-  MutableRefObject,
-  RefObject
+  RefObject,
+  useCallback,
+  ChangeEvent
 } from 'react';
-import { useCallback, ChangeEvent } from 'react';
+
 import debounce from 'lodash/debounce';
 import { usePercentValue } from '../hooks/usePercentValue';
 import useUpdateEffect from '../hooks/useUpdateEffect';
@@ -33,6 +33,7 @@ function BaseInput({
   ...rest
 }: BaseInputProps & { onChange: IOnStringChange; pattern: RegExp }) {
   const [state, setState] = useState(value);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChange = useCallback(
     debounce<IOnStringChange>(onChange, 300),
     []
@@ -45,7 +46,7 @@ function BaseInput({
         debouncedChange(v);
       }
     },
-    [pattern]
+    [debouncedChange, pattern]
   );
 
   useUpdateEffect(() => {
@@ -72,11 +73,19 @@ const patterns = {
 };
 
 export function NumberInput({ value, onChange, ...rest }: NumberInputProps) {
-  const callback = useCallback((value: string) => {
-    onChange(+value);
-  }, []);
+  const callback = useCallback(
+    (value: string) => {
+      onChange(+value);
+    },
+    [onChange]
+  );
   return (
-    <BaseInput value={value} onChange={callback} pattern={patterns.number} />
+    <BaseInput
+      {...rest}
+      value={value}
+      onChange={callback}
+      pattern={patterns.number}
+    />
   );
 }
 
@@ -84,9 +93,12 @@ export function PercentInput({ value, onChange, ...rest }: PercentInputProps) {
   const [rawValue, percentValue, setPercentValue] = usePercentValue(
     value as number
   );
-  const callback = useCallback((v: string) => {
-    setPercentValue(+v);
-  }, []);
+  const callback = useCallback(
+    (v: string) => {
+      setPercentValue(+v);
+    },
+    [setPercentValue]
+  );
 
   useUpdateEffect(() => {
     onChange(rawValue);

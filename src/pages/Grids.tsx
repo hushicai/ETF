@@ -149,18 +149,18 @@ export function Grids() {
         <tfoot>
           <tr>
             <TFootCell>总计</TFootCell>
-            <TFootCell></TFootCell>
-            <TFootCell></TFootCell>
-            <TFootCell></TFootCell>
-            <TFootCell></TFootCell>
+            <TFootCell />
+            <TFootCell />
+            <TFootCell />
+            <TFootCell />
             <TFootCell>{toFixedString(total.buyAmount, 0)}</TFootCell>
-            <TFootCell></TFootCell>
-            <TFootCell></TFootCell>
-            <TFootCell></TFootCell>
+            <TFootCell />
+            <TFootCell />
+            <TFootCell />
             <TFootCell>{toFixedString(total.profits, 0)}</TFootCell>
-            <TFootCell></TFootCell>
+            <TFootCell />
             <TFootCell>{toFixedString(total.retainedProfits, 0)}</TFootCell>
-            <TFootCell></TFootCell>
+            <TFootCell />
           </tr>
         </tfoot>
       </Table>

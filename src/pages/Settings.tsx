@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useAppState } from '../common/store';
 import { NumberInput, PercentInput, TextInput } from '../components/Input';

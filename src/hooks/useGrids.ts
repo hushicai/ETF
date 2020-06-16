@@ -128,9 +128,9 @@ export function useGrids() {
   const minGear = (1 - 0.6) * maxGear;
 
   let gear = maxGear;
-  let i = 0,
-    j = 0,
-    k = 0;
+  let i = 0;
+    let j = 0;
+    let k = 0;
 
   while (gear >= minGear) {
     const buyAmount = toFixedNumber(
