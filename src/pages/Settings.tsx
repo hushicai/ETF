@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useAppState } from '../common/store';
-import { NumberInput, PercentInput } from '../components/Input';
+import { NumberInput, PercentInput, TextInput } from '../components/Input';
 import { CheckBox } from '../components/Checkbox';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Fieldset = styled.fieldset<{ last?: boolean }>`
   border: 0;
@@ -45,11 +45,16 @@ const InputContainer = styled.div`
     border-style: solid;
     border-color: rgba(34, 36, 38, 0.15);
     border-radius: 5px;
+    transition: box-shadow 0.1s ease 0s, border-color 0.1s ease 0s;
+    flex: 1;
+  }
+`;
+
+const UnitInputContainer = styled(InputContainer)`
+  input[type='text'] {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     border-right-color: transparent;
-    transition: box-shadow 0.1s ease 0s, border-color 0.1s ease 0s;
-    flex: 1;
   }
   div {
     font-weight: 700;
@@ -69,7 +74,7 @@ const InputContainer = styled.div`
   }
 `;
 
-const FlexendInputcontainer = styled(InputContainer)`
+const FlexendInputContainer = styled(InputContainer)`
   justify-content: flex-end;
   input[type='checkbox'] {
     margin-right: 14px;
@@ -93,7 +98,7 @@ export function Settings() {
         <Legend>基本设置</Legend>
         <Row>
           <Label>价　　格</Label>
-          <InputContainer>
+          <UnitInputContainer>
             <NumberInput
               value={price}
               onChange={(value: number) => {
@@ -103,11 +108,11 @@ export function Settings() {
               }}
             />
             <div>元</div>
-          </InputContainer>
+          </UnitInputContainer>
         </Row>
         <Row last>
           <Label>每份金额</Label>
-          <InputContainer>
+          <UnitInputContainer>
             <NumberInput
               value={amount}
               onChange={(value: number) => {
@@ -117,14 +122,14 @@ export function Settings() {
               }}
             />
             <div>元</div>
-          </InputContainer>
+          </UnitInputContainer>
         </Row>
       </Fieldset>
       <Fieldset>
         <Legend>留利润</Legend>
         <Row last>
           <Label>留存份数</Label>
-          <InputContainer>
+          <UnitInputContainer>
             <NumberInput
               value={numberOfRetainedProfits}
               onChange={(value: number) => {
@@ -132,14 +137,14 @@ export function Settings() {
               }}
             />
             <div>份</div>
-          </InputContainer>
+          </UnitInputContainer>
         </Row>
       </Fieldset>
       <Fieldset>
         <Legend>逐格加码</Legend>
         <Row last>
           <Label>加码幅度</Label>
-          <InputContainer>
+          <UnitInputContainer>
             <PercentInput
               value={increasePercentPerGrid}
               onChange={(value: number) => {
@@ -147,32 +152,32 @@ export function Settings() {
               }}
             />
             <div>%</div>
-          </InputContainer>
+          </UnitInputContainer>
         </Row>
       </Fieldset>
       <Fieldset last>
         <Legend>一网打尽</Legend>
         <Row>
           <Label>中　　网</Label>
-          <FlexendInputcontainer>
+          <FlexendInputContainer>
             <CheckBox
               checked={hasMiddleGrid}
               onChange={(value: boolean) => {
                 dispatch('hasMiddleGrid', value);
               }}
             />
-          </FlexendInputcontainer>
+          </FlexendInputContainer>
         </Row>
         <Row last>
           <Label>大　　网</Label>
-          <FlexendInputcontainer>
+          <FlexendInputContainer>
             <CheckBox
               checked={hasBigGrid}
               onChange={(value: boolean) => {
                 dispatch('hasBigGrid', value);
               }}
             />
-          </FlexendInputcontainer>
+          </FlexendInputContainer>
         </Row>
       </Fieldset>
     </form>

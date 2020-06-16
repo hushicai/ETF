@@ -6,11 +6,11 @@ import useUpdateEffect from '../hooks/useUpdateEffect';
 
 type InputHTMLAttributes = React.InputHTMLAttributes<HTMLInputElement>;
 type RequiredInputProps = Required<Pick<InputHTMLAttributes, 'value'>>;
-type OptionalInputProps = Pick<InputHTMLAttributes, 'type'>;
+type OptionalInputProps = Pick<InputHTMLAttributes, 'type' | 'placeholder'>;
 
 type IOnStringChange = (value: string) => void;
 type TextInputProps = RequiredInputProps &
-  OptionalInputProps & { onChange: IOnStringChange } & { pattern: RegExp };
+  OptionalInputProps & { onChange: IOnStringChange } & { pattern?: RegExp };
 
 export function TextInput({
   value,
@@ -34,7 +34,7 @@ export function TextInput({
     [pattern]
   );
 
-  return <input type="text" value={state} onChange={callback} />;
+  return <input {...rest} type="text" value={state} onChange={callback} />;
 }
 
 type IOnNumberChange = (value: number) => void;
