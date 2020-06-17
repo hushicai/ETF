@@ -32,6 +32,9 @@ const List = styled.div`
     line-height: 36px;
     border-bottom: 1px solid #eee;
     padding: 0 1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   li:hover {
     background-color: #eee;
