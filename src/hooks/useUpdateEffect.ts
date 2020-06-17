@@ -13,7 +13,7 @@ const useUpdateEffect: typeof useEffect = (
       return effect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [effect, ...deps]);
+  }, deps);
 };
 
 export default useUpdateEffect;
