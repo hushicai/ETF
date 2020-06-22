@@ -4,7 +4,7 @@ import { useDispatch, useAppState } from '../common/store';
 import { NumberInput, PercentInput, TextInput } from '../components/Input';
 import { CheckBox } from '../components/Checkbox';
 import styled from 'styled-components';
-import { FundDataItem, suggestFunds } from '../common/service';
+import { FundDataItem } from '../common/service';
 import noop from 'lodash/noop';
 import {
   UnitInputContainer,
@@ -146,16 +146,6 @@ export function Settings() {
 function Fund() {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [data, setData] = useState<FundDataItem[]>([]);
-  const callback = useCallback(async (value: string) => {
-    if (!value) {
-      return setData([]);
-    }
-    // TODO: race condition
-    const data = await suggestFunds(value);
-    setData(data);
-  }, []);
-
   const onSelectCallback = useCallback(
     (item: FundDataItem) => {
       const { FundBaseInfo } = item;
@@ -167,7 +157,6 @@ function Fund() {
       }
 
       setName(item.NAME);
-      setData([]);
     },
     [dispatch]
   );
@@ -178,8 +167,6 @@ function Fund() {
         <Label>基　　金</Label>
         <Suggestion
           inputProps={{ placeholder: '请输入基金代码、拼音或者简称' }}
-          data={data}
-          onSuggest={callback}
           onSelect={onSelectCallback}
         />
       </Row>

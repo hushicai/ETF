@@ -1,10 +1,17 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  Suspense
+} from 'react';
 
 import { TextInput, OptionalInputProps } from './Input';
 import { InputContainer } from './InputContainer';
 import { findDOMNode } from 'react-dom';
 import { FundDataItem } from '../common/service';
 import styled from 'styled-components';
+import { fetchFundData, Resource } from '../common/resource';
 
 const SuggestionContainer = styled(InputContainer)`
   display: block;
@@ -46,43 +53,37 @@ const List = styled.div`
   }
 `;
 
-type IOnSuggest = (value: string) => void;
 type IOnSelect = (item: FundDataItem) => void;
+
+const initialResource = fetchFundData('');
 
 export function Suggestion({
   inputProps,
-  onSuggest,
-  data,
   onSelect
 }: {
   inputProps?: OptionalInputProps;
-  onSuggest: IOnSuggest;
-  data: FundDataItem[];
   onSelect: IOnSelect;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState('');
   const [visible, setVisible] = useState(true);
-  const onChangeCallback = useCallback(
-    (value: string) => {
-      setInputValue(value);
-      onSuggest(value);
-    },
-    [onSuggest]
+  const [resource, setResource] = useState<Resource<FundDataItem[]>>(
+    initialResource
   );
+  const onChangeCallback = useCallback((value: string) => {
+    setInputValue(value);
+    const nextResource = fetchFundData(value);
+    setResource(nextResource);
+  }, []);
 
   const onSelectCallback = useCallback(
-    (e) => {
-      const node = e.target;
-      const index = node && node.getAttribute('data-suggest-index');
-      const item = data[index];
-
+    (item) => {
       onSelect(item);
       setInputValue(item.CODE);
       setVisible(false);
     },
-    [data, onSelect]
+    [onSelect]
   );
 
   const onFocusCallback = useCallback(() => {
@@ -127,24 +128,49 @@ export function Suggestion({
         onChange={onChangeCallback}
         forwardedRef={inputRef}
       />
-      {visible && !!data.length && (
-        <List>
-          <ul>
-            {data.map((item, index) => {
-              return (
-                <li
-                  key={index}
-                  data-suggest-index={index}
-                  onClick={onSelectCallback}
-                >
-                  {item.CODE} {item.NAME}
-                </li>
-              );
-            })}
-          </ul>
-          <p>提示：数据来自天天基金网。</p>
-        </List>
-      )}
+      <Suspense fallback={null}>
+        <SuggestionList
+          resource={resource}
+          visible={visible}
+          onSelect={onSelectCallback}
+        />
+      </Suspense>
     </SuggestionContainer>
   );
+}
+
+function SuggestionList({
+  resource,
+  visible,
+  onSelect
+}: {
+  resource: Resource<FundDataItem[]>;
+  visible: boolean;
+  onSelect: IOnSelect;
+}): JSX.Element | null {
+  const data = resource.funds.read();
+  const onClick = useCallback(
+    (e) => {
+      const node = e.target;
+      const index = node && node.getAttribute('data-suggest-index');
+      const item = data[index];
+      onSelect(item);
+    },
+    [onSelect, data]
+  );
+
+  return visible && data.length ? (
+    <List>
+      <ul>
+        {data.map((item, index) => {
+          return (
+            <li key={index} data-suggest-index={index} onClick={onClick}>
+              {item.CODE} {item.NAME}
+            </li>
+          );
+        })}
+      </ul>
+      <p>提示：数据来自天天基金网。</p>
+    </List>
+  ) : null;
 }
