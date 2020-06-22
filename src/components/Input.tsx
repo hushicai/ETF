@@ -14,7 +14,7 @@ type InputHTMLAttributes = React.InputHTMLAttributes<HTMLInputElement>;
 type RequiredInputProps = Required<Pick<InputHTMLAttributes, 'value'>>;
 export type OptionalInputProps = Pick<
   InputHTMLAttributes,
-  'type' | 'placeholder' | 'readOnly' | 'onBlur' | 'onFocus'
+  'type' | 'placeholder' | 'readOnly' | 'onBlur' | 'onFocus' | 'id'
 >;
 type IOnStringChange = (value: string) => void;
 type IOnNumberChange = (value: number) => void;

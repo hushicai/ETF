@@ -15,9 +15,11 @@ const Button = styled.button`
 
 export default function Download() {
   const callback = useCallback(() => {
+    const input = document.getElementById('fund-input');
     const table = document.getElementById('table-list');
     const wb = XLSX.utils.table_to_book(table);
-    XLSX.writeFile(wb, `${Date.now()}.xlsx`);
+    const name = (input as HTMLInputElement).value.trim() || `${Date.now()}`;
+    XLSX.writeFile(wb, `${name}.xlsx`);
   }, []);
 
   return <Button onClick={callback}>下载表格</Button>;

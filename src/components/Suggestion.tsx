@@ -127,6 +127,7 @@ export function Suggestion({
         onFocus={onFocusCallback}
         onChange={onChangeCallback}
         forwardedRef={inputRef}
+        id="fund-input"
       />
       <Suspense fallback={null}>
         <SuggestionList
