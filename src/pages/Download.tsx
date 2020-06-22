@@ -17,7 +17,7 @@ export default function Download() {
   const callback = useCallback(() => {
     const input = document.getElementById('fund-input');
     const table = document.getElementById('table-list');
-    const wb = XLSX.utils.table_to_book(table);
+    const wb = XLSX.utils.table_to_book(table, { raw: true });
     const name = (input as HTMLInputElement).value.trim() || `${Date.now()}`;
     XLSX.writeFile(wb, `${name}.xlsx`);
   }, []);
