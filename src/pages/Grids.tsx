@@ -85,6 +85,9 @@ export function Grids() {
     { buyAmount: 0, profits: 0, retainedProfits: 0 }
   );
 
+  const totalBuyAmount = total.buyAmount;
+  const totalProfits = total.profits + total.retainedProfits;
+
   return (
     <Container>
       <Title>
@@ -153,13 +156,15 @@ export function Grids() {
             <TFootCell />
             <TFootCell />
             <TFootCell />
-            <TFootCell>{toFixedString(total.buyAmount, 0)}</TFootCell>
+            <TFootCell>{toFixedString(totalBuyAmount, 0)}</TFootCell>
             <TFootCell />
             <TFootCell />
             <TFootCell />
-            <TFootCell>{toFixedString(total.profits, 0)}</TFootCell>
+            <TFootCell>{toFixedString(totalProfits, 0)}</TFootCell>
+            <TFootCell>
+              {toFixedString((totalProfits / totalBuyAmount) * 100, 2)}%
+            </TFootCell>
             <TFootCell />
-            <TFootCell>{toFixedString(total.retainedProfits, 0)}</TFootCell>
             <TFootCell />
           </tr>
         </tfoot>
