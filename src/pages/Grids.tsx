@@ -72,6 +72,12 @@ const Tip = styled.div`
   }
 `;
 
+const GridComponents = {
+  [GearType.small]: SmallGrid,
+  [GearType.middle]: MiddleGrid,
+  [GearType.big]: BigGrid
+};
+
 export function Grids() {
   const grids = useGrids();
   const total = grids.reduce(
@@ -124,12 +130,7 @@ export function Grids() {
         </thead>
         <tbody>
           {grids.map((grid, index) => {
-            const GridComponent =
-              grid.type === GearType.small
-                ? SmallGrid
-                : grid.type === GearType.middle
-                ? MiddleGrid
-                : BigGrid;
+            const GridComponent = GridComponents[grid.type];
             return (
               <GridComponent key={index} last={index === grids.length - 1}>
                 <TBodyCell>{index + 1}</TBodyCell>
