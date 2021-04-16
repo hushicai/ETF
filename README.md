@@ -16,3 +16,7 @@ npm start
 ```
 npm run build
 ```
+
+## 部署
+
+git push代码，github Actions自动构建并部署。
