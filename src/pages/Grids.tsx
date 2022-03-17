@@ -150,7 +150,9 @@ export function Grids() {
                   <TBodyCell>{toFixedString(grid.sellAmount, 0)}</TBodyCell>
                   <TBodyCell>{toFixedString(grid.profits, 0)}</TBodyCell>
                   <TBodyCell>{grid.returnRate}</TBodyCell>
-                  <TBodyCell>{toFixedString(grid.retainedProfits, 0)}</TBodyCell>
+                  <TBodyCell>
+                    {toFixedString(grid.retainedProfits, 0)}
+                  </TBodyCell>
                   <TBodyCell>{toFixedString(grid.retainedCount, 0)}</TBodyCell>
                 </GridComponent>
               );
