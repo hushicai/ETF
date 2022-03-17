@@ -110,7 +110,7 @@ export default function Download() {
 
   return (
     <>
-      <Button onClick={callback}>下载</Button>
+      <Button onClick={callback}>下载表格</Button>
       {portal}
     </>
   );
