@@ -25,7 +25,7 @@ const H1 = styled.h1`
 const Wrapper = styled.div`
   padding: 0.5em;
   box-sizing: border-box;
-  max-width: 960px;
+  max-width: 1024px;
   margin: 0 auto;
 `;
 
