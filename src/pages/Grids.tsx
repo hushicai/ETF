@@ -16,6 +16,11 @@ const Title = styled.p`
   font-size: 1.2em;
 `;
 
+const Content = styled.div`
+  max-width: 100%;
+  overflow-x: scroll;
+`;
+
 const Table = styled.table`
   border-collapse: separate;
   border-spacing: 0;
@@ -102,74 +107,76 @@ export function Grids() {
           <LazyDownload />
         </Suspense>
       </Title>
-      <Table id="table-list">
-        <thead>
-          <tr>
-            <THeadCell>序号</THeadCell>
-            <THeadCell>种类</THeadCell>
-            <THeadCell>档位</THeadCell>
-            <THeadCell>买入价格</THeadCell>
-            <THeadCell>买入数量</THeadCell>
-            <THeadCell>买入金额</THeadCell>
-            <THeadCell>卖出价格</THeadCell>
-            <THeadCell>卖出数量</THeadCell>
-            <THeadCell>卖出金额</THeadCell>
-            <THeadCell>盈利金额</THeadCell>
-            <THeadCell>盈利比例</THeadCell>
-            <THeadCell>
-              本期
-              <br />
-              留存利润
-            </THeadCell>
-            <THeadCell>
-              本期
-              <br />
-              留存数量
-            </THeadCell>
-          </tr>
-        </thead>
-        <tbody>
-          {grids.map((grid, index) => {
-            const GridComponent = GridComponents[grid.type];
-            return (
-              <GridComponent key={index} last={index === grids.length - 1}>
-                <TBodyCell>{index + 1}</TBodyCell>
-                <TBodyCell>{grid.type}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.gear)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.buyPrice)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.buyCount, 0)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.buyAmount, 0)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.sellPrice)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.sellCount, 0)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.sellAmount, 0)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.profits, 0)}</TBodyCell>
-                <TBodyCell>{grid.returnRate}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.retainedProfits, 0)}</TBodyCell>
-                <TBodyCell>{toFixedString(grid.retainedCount, 0)}</TBodyCell>
-              </GridComponent>
-            );
-          })}
-        </tbody>
-        <tfoot>
-          <tr>
-            <TFootCell>总计</TFootCell>
-            <TFootCell />
-            <TFootCell />
-            <TFootCell />
-            <TFootCell />
-            <TFootCell>{toFixedString(totalBuyAmount, 0)}</TFootCell>
-            <TFootCell />
-            <TFootCell />
-            <TFootCell />
-            <TFootCell>{toFixedString(totalProfits, 0)}</TFootCell>
-            <TFootCell>
-              {toFixedString((totalProfits / totalBuyAmount) * 100, 2)}%
-            </TFootCell>
-            <TFootCell />
-            <TFootCell />
-          </tr>
-        </tfoot>
-      </Table>
+      <Content>
+        <Table id="table-list">
+          <thead>
+            <tr>
+              <THeadCell>序号</THeadCell>
+              <THeadCell>种类</THeadCell>
+              <THeadCell>档位</THeadCell>
+              <THeadCell>买入价格</THeadCell>
+              <THeadCell>买入数量</THeadCell>
+              <THeadCell>买入金额</THeadCell>
+              <THeadCell>卖出价格</THeadCell>
+              <THeadCell>卖出数量</THeadCell>
+              <THeadCell>卖出金额</THeadCell>
+              <THeadCell>盈利金额</THeadCell>
+              <THeadCell>盈利比例</THeadCell>
+              <THeadCell>
+                本期
+                <br />
+                留存利润
+              </THeadCell>
+              <THeadCell>
+                本期
+                <br />
+                留存数量
+              </THeadCell>
+            </tr>
+          </thead>
+          <tbody>
+            {grids.map((grid, index) => {
+              const GridComponent = GridComponents[grid.type];
+              return (
+                <GridComponent key={index} last={index === grids.length - 1}>
+                  <TBodyCell>{index + 1}</TBodyCell>
+                  <TBodyCell>{grid.type}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.gear)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.buyPrice)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.buyCount, 0)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.buyAmount, 0)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.sellPrice)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.sellCount, 0)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.sellAmount, 0)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.profits, 0)}</TBodyCell>
+                  <TBodyCell>{grid.returnRate}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.retainedProfits, 0)}</TBodyCell>
+                  <TBodyCell>{toFixedString(grid.retainedCount, 0)}</TBodyCell>
+                </GridComponent>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr>
+              <TFootCell>总计</TFootCell>
+              <TFootCell />
+              <TFootCell />
+              <TFootCell />
+              <TFootCell />
+              <TFootCell>{toFixedString(totalBuyAmount, 0)}</TFootCell>
+              <TFootCell />
+              <TFootCell />
+              <TFootCell />
+              <TFootCell>{toFixedString(totalProfits, 0)}</TFootCell>
+              <TFootCell>
+                {toFixedString((totalProfits / totalBuyAmount) * 100, 2)}%
+              </TFootCell>
+              <TFootCell />
+              <TFootCell />
+            </tr>
+          </tfoot>
+        </Table>
+      </Content>
       <Tip>
         <p>说明：</p>
         <ol>
