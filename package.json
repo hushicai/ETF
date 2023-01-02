@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@snowpack/app-scripts-react": "^1.1.4",
-    "@snowpack/plugin-webpack": "^1.1.0",
+    "@snowpack/plugin-webpack": "^3.0.0",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.3",
     "@types/downloadjs": "^1.4.2",
