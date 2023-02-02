@@ -106,6 +106,7 @@ export function useGrids() {
   const {
     price,
     amount,
+    maxPercentOfDecline,
     increasePercentPerGrid,
     numberOfRetainedProfits,
     hasMiddleGrid,
@@ -123,9 +124,8 @@ export function useGrids() {
   // ”
   //                                    —— 摘自E大公众号
 
-  // 这里按照最大跌幅60%设计
   const maxGear = 1;
-  const minGear = (1 - 0.6) * maxGear;
+  const minGear = (1 - maxPercentOfDecline) * maxGear;
 
   let gear = maxGear;
   let i = 0;

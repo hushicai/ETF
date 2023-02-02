@@ -4,7 +4,7 @@ import { useDispatch, useAppState } from '../common/store';
 import { NumberInput, PercentInput, TextInput } from '../components/Input';
 import { CheckBox } from '../components/Checkbox';
 import styled from 'styled-components';
-import { FundDataItem } from '../common/service';
+import type { FundDataItem } from '../common/service';
 import noop from 'lodash/noop';
 import {
   UnitInputContainer,
@@ -45,6 +45,7 @@ export function Settings() {
   const {
     price,
     amount,
+    maxPercentOfDecline,
     increasePercentPerGrid,
     numberOfRetainedProfits,
     hasMiddleGrid,
@@ -69,7 +70,7 @@ export function Settings() {
             <div>元</div>
           </UnitInputContainer>
         </Row>
-        <Row last>
+        <Row>
           <Label>每份金额</Label>
           <UnitInputContainer>
             <NumberInput
@@ -81,6 +82,18 @@ export function Settings() {
               }}
             />
             <div>元</div>
+          </UnitInputContainer>
+        </Row>
+        <Row last>
+          <Label>最大跌幅</Label>
+          <UnitInputContainer>
+            <PercentInput
+              value={maxPercentOfDecline}
+              onChange={(value: number) => {
+                dispatch('maxPercentOfDecline', value);
+              }}
+            />
+            <div>%</div>
           </UnitInputContainer>
         </Row>
       </Fieldset>

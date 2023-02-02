@@ -5,6 +5,8 @@ export type State = {
   price: number;
   // 每份金额
   amount: number;
+  // 最大跌幅
+  maxPercentOfDecline: number;
   // 留存利润
   numberOfRetainedProfits: number;
   // 逐格加码
@@ -18,6 +20,8 @@ export const initialState = {
   price: 1.0,
   // 每份金额
   amount: 10000,
+  // 最大跌幅
+  maxPercentOfDecline: 0.6,
   // 留存利润
   numberOfRetainedProfits: 2,
   // 逐格加码
