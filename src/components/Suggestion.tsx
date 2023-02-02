@@ -9,7 +9,7 @@ import React, {
 import { TextInput, OptionalInputProps } from './Input';
 import { InputContainer } from './InputContainer';
 import { findDOMNode } from 'react-dom';
-import { FundDataItem } from '../common/service';
+import type { FundDataItem } from '../common/service';
 import styled from 'styled-components';
 import { fetchFundData, Resource } from '../common/resource';
 
