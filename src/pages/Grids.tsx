@@ -55,7 +55,7 @@ const THeadCell = styled.th`
 
 const TBodyCell = styled.td`
   border-bottom: 1px dashed #333;
-  padding: 0.5em 1em;
+  padding: 1em;
   text-align: center;
 `;
 
