@@ -29,7 +29,7 @@
     "@types/styled-components": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.3.0",
-    "eslint": "^7.2.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-config-standard-jsx": "^8.1.0",
@@ -41,7 +41,7 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^25.4.0",
-    "patch-package": "^6.2.2",
+    "patch-package": "^8.0.1",
     "prettier": "^2.0.5",
     "snowpack": "^2.2.0",
     "typescript": "^3.8.0"
